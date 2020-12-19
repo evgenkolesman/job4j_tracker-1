@@ -22,7 +22,7 @@ public class SqlTracker implements Store {
     private static final String FINDBYNAME_REQUEST = "select * from items where name like ?;";
     private static final String FINDBYID_REQUEST = "select * from items where id = ?;";
 
-    private Connection cn;
+    protected Connection cn;
 
     public SqlTracker() {
 
