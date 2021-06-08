@@ -3,7 +3,6 @@ package ru.job4j.tracker.store.reactive;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.tracker.model.Item;
-import ru.job4j.tracker.store.SqlTracker;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
