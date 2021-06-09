@@ -2,11 +2,12 @@ package ru.job4j.tracker.store;
 
 import ru.job4j.tracker.model.Item;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface Store extends AutoCloseable {
     void init();
-    Item add(Item item);
+    Item add(Item item) throws SQLException;
     boolean replace(String id, Item item);
     boolean delete(String id);
     List<Item> findAll();

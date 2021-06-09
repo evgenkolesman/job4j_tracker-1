@@ -17,11 +17,11 @@ env:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
-# Отправлять уведомление на почтуmailto:youremail@smtp.ru(Изменить на свою) если сборка упала
+# Отправлять уведомление на почту mailto:youremail@smtp.ru(Изменить на свою) если сборка упала
 notifications:
   email:
     recipients:
-      - rail.shamsemukhametov@mail.ru
+      - evgeniysanich@mail.ru
     on_success: never # default: change
     on_failure: always # default: always
 
