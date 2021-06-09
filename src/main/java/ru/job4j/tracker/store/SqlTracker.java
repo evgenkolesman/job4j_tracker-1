@@ -18,8 +18,8 @@ import java.util.Properties;
 public class SqlTracker implements Store {
     private Connection cn;
 
-    public void init(){
-        try(InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream("app.properties")) {
+    public void init() {
+        try (InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream("app.properties")) {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("driver-class-name"));
@@ -35,14 +35,14 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) throws SQLException {
-            try (PreparedStatement statement =
-                         cn.prepareStatement("insert into item(id, name) values (?, ?)")) {
-                statement.setString(1, item.getName());
-                statement.setInt(2, Integer.parseInt(item.getId()));
-                statement.execute();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try (PreparedStatement statement =
+                     cn.prepareStatement("insert into item(id, name) values (?, ?)")) {
+            statement.setString(1, item.getName());
+            statement.setInt(2, Integer.parseInt(item.getId()));
+            statement.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         item.setId(String.format("select id from items where name = %s", item.getName()));
         return item;
     }
@@ -51,13 +51,13 @@ public class SqlTracker implements Store {
     public boolean replace(String id, Item item) {
         boolean flag = false;
         try (Statement statement = cn.createStatement()) {
-                flag = statement.execute((String.format(
-                        "update items set name %s where id = %s ", item.getName(), id)));
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        return flag;
+            flag = statement.execute((String.format(
+                    "update items set name %s where id = %s ", item.getName(), id)));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return flag;
+    }
 
 
     @Override
@@ -75,14 +75,14 @@ public class SqlTracker implements Store {
     public List<Item> findAll() {
         List<Item> values = new ArrayList<>();
         try (PreparedStatement statement = cn.prepareStatement("select * from items")) {
-           try (ResultSet resultSet = statement.executeQuery()) {
-               while (resultSet.next()) {
-                   values.add(new Item(
-                    resultSet.getString("id"),
-                    resultSet.getString("name")
-                   ));
-               }
-           }
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    values.add(new Item(
+                            resultSet.getString("id"),
+                            resultSet.getString("name")
+                    ));
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -98,7 +98,7 @@ public class SqlTracker implements Store {
                 while (result.next()) {
                     values.add(new Item(
                             result.getString(String.format(key)
-                    )));
+                            )));
                 }
             }
         } catch (SQLException e) {
