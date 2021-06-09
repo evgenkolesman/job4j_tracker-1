@@ -3,12 +3,17 @@ package ru.job4j.tracker.store;
 import ru.job4j.tracker.model.Item;
 
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
+/*
+ * продолжение проекта с tracker, взаимодействие с БД
+ * операемся на интерфейс Store
+ * @author Kolesnikov Evgeniy (evgeniysanich@mail.ru)
+ * @version 1.0
+ */
 
 public class SqlTracker implements Store {
     private Connection cn;
@@ -30,48 +35,97 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) throws SQLException {
-        writeSQL(String.format("insert into item(id, name) values(%s, %s);", item.toString()));
+            try (PreparedStatement statement =
+                         cn.prepareStatement("insert into item(id, name) values (?, ?)")) {
+                statement.setString(1, item.getName());
+                statement.setInt(2, Integer.parseInt(item.getId()));
+                statement.execute();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         item.setId(String.format("select id from items where name = %s", item.getName()));
         return item;
     }
 
     @Override
     public boolean replace(String id, Item item) {
-        boolean flag;
-        writeSQL(String.format("update items set "));
-        return
-    }
+        boolean flag = false;
+        try (Statement statement = cn.createStatement()) {
+                flag = statement.execute((String.format(
+                        "update items set name %s where id = %s ", item.getName(), id)));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        return flag;
+        }
+
 
     @Override
     public boolean delete(String id) {
-        return false;
+        boolean flag = false;
+        try (Statement statement = cn.createStatement()) {
+            flag = statement.execute((String.format("delete from items where id = %s ", id)));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return flag;
     }
 
     @Override
     public List<Item> findAll() {
-        return null;
+        List<Item> values = new ArrayList<>();
+        try (PreparedStatement statement = cn.prepareStatement("select * from items")) {
+           try (ResultSet resultSet = statement.executeQuery()) {
+               while (resultSet.next()) {
+                   values.add(new Item(
+                    resultSet.getString("id"),
+                    resultSet.getString("name")
+                   ));
+               }
+           }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return values;
     }
 
     @Override
     public List<Item> findByName(String key) {
-        return null;
+        List<Item> values = new ArrayList<>();
+        try (PreparedStatement statement = cn.prepareStatement(String.format(
+                "select name from items where %s", key))) {
+            try (ResultSet result = statement.executeQuery()) {
+                while (result.next()) {
+                    values.add(new Item(
+                            result.getString(String.format(key)
+                    )));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return values;
     }
 
     @Override
     public Item findById(String id) {
-        return null;
+        Item result1 = null;
+        try (PreparedStatement statement = cn.prepareStatement("select * from items")) {
+            try (ResultSet result = statement.executeQuery()) {
+                while (result.next()) {
+                    result1 = new Item(result.getString(String.format(id)));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result1;
     }
 
     @Override
     public void close() throws Exception {
         if (cn != null) {
             cn.close();
-        }
-    }
-
-    public void writeSQL(String sql) throws SQLException {
-        try (Statement statement = cn.createStatement()) {
-            statement.execute(sql);
         }
     }
 }

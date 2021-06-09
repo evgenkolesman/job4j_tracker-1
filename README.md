@@ -1,6 +1,6 @@
 # job4j_tracker
-[![Build Status](https://travis-ci.org/ShamRail/job4j_tracker.svg?branch=master)](https://travis-ci.org/ShamRail/job4j_tracker)
-[![codecov](https://codecov.io/gh/ShamRail/job4j_tracker/branch/master/graph/badge.svg)](https://codecov.io/gh/ShamRail/job4j_tracker)
+[![Build Status](https://travis-ci.com/github/evgenkolesman/job4j_tracker-1)](https://travis-ci.com/github/evgenkolesman/job4j_tracker-1)
+[![codecov](https://app.codecov.io/gh/evgenkolesman/job4j_tracker-1)](https://app.codecov.io/gh/evgenkolesman/job4j_tracker-1)
 
 This project represents basic CRUD console application and demonstrates OOP principles.
 
