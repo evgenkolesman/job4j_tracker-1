@@ -10,7 +10,7 @@ import java.util.Properties;
 
 /*
  * продолжение проекта с tracker, взаимодействие с БД
- * операемся на интерфейс Store
+ * опираемся на интерфейс Store
  * @author Kolesnikov Evgeniy (evgeniysanich@mail.ru)
  * @version 1.0
  */
