@@ -7,9 +7,11 @@ import ru.job4j.tracker.input.ValidateInput;
 import ru.job4j.tracker.store.Store;
 import ru.job4j.tracker.store.SqlTracker;
 
+import java.sql.SQLException;
+
 public class StartUI {
 
-    public void init(Input input, Store tracker, UserAction[] actions) {
+    public void init(Input input, Store tracker, UserAction[] actions) throws SQLException {
         boolean run = true;
         while (run) {
             showMenu(actions);

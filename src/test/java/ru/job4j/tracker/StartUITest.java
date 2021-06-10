@@ -11,13 +11,14 @@ import ru.job4j.tracker.store.MemTracker;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.sql.SQLException;
 import java.util.StringJoiner;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class StartUITest {
     @Test
-    public void whenExit() {
+    public void whenExit() throws SQLException {
         StubInput input = new StubInput(
                 new String[] {"0"}
         );
@@ -27,7 +28,7 @@ public class StartUITest {
     }
 
     @Test
-    public void whenPrtMenu() {
+    public void whenPrtMenu() throws SQLException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream def = System.out;
         System.setOut(new PrintStream(out));
