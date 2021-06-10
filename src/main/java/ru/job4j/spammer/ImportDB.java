@@ -45,13 +45,13 @@ public class ImportDB {
                     cfg.getProperty("jdbc.username"),
                     cfg.getProperty("jdbc.password")
             );
-            {
-                for (User user : users) {
-                    try (PreparedStatement ps = cn.prepareStatement("insert into users(name, email) values(?,?)")) {
-                        ps.setString(1, user.name);
-                        ps.setString(2, user.email);
-                        ps.execute();
-                    }
+
+            for (User user : users) {
+                try (PreparedStatement ps = cn.prepareStatement(
+                        "insert into users(name, email) values(?,?)")) {
+                    ps.setString(1, user.name);
+                    ps.setString(2, user.email);
+                    ps.execute();
                 }
             }
         }
