@@ -34,11 +34,11 @@ public class SqlTracker implements Store {
     }
 
     @Override
-    public Item add(Item item) throws SQLException {
+    public Item add(Item item) {
         try (PreparedStatement statement =
                      cn.prepareStatement("insert into items(name) values(?) returning id;")) {
             statement.setString(1, item.getName());
-            try(ResultSet res = statement.executeQuery()) {
+            try (ResultSet res = statement.executeQuery()) {
                 item.setId(String.valueOf(res.getInt(1)));
             }
         } catch (Exception e) {
@@ -50,7 +50,7 @@ public class SqlTracker implements Store {
     @Override
     public boolean replace(String id, Item item) {
         boolean flag = false;
-        try (PreparedStatement statement = cn.prepareStatement ("update items set name %s where id = %s ;")) {
+        try (PreparedStatement statement = cn.prepareStatement("update items set name %s where id = %s ;")) {
             statement.setString(1, item.getName());
             statement.setInt(2, Integer.parseInt(id));
             flag = statement.executeUpdate() > 0;
@@ -64,7 +64,7 @@ public class SqlTracker implements Store {
     @Override
     public boolean delete(String id) {
         boolean flag = false;
-        try (PreparedStatement statement = cn.prepareStatement ("delete from items where id = ?;")) {
+        try (PreparedStatement statement = cn.prepareStatement("delete from items where id = ?;")) {
             statement.setInt(1, Integer.parseInt(id));
             flag = statement.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -95,7 +95,7 @@ public class SqlTracker implements Store {
     public List<Item> findByName(String key) {
         List<Item> values = new ArrayList<>();
         try (PreparedStatement statement = cn.prepareStatement("select name from items where ?;")) {
-            statement.setString(1,  key );
+            statement.setString(1, key);
             try (ResultSet result = statement.executeQuery()) {
                 while (result.next()) {
                     values.add(new Item(String.valueOf(result.getInt("id")),
