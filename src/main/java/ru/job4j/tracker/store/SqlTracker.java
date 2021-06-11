@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Properties;
 
 /*
- * продолжение проекта с tracker, взаимодействие с БД
+ * Продолжение проекта с tracker, взаимодействие с БД
  * опираемся на интерфейс Store
  * @author Kolesnikov Evgeniy (evgeniysanich@mail.ru)
  * @version 1.0
@@ -36,23 +36,24 @@ public class SqlTracker implements Store {
     @Override
     public Item add(Item item) throws SQLException {
         try (PreparedStatement statement =
-                     cn.prepareStatement("insert into item(id, name) values (?, ?)")) {
+                     cn.prepareStatement("insert into items(name) values(?) returning id;")) {
             statement.setString(1, item.getName());
-            statement.setInt(2, Integer.parseInt(item.getId()));
-            statement.execute();
+            try(ResultSet res = statement.executeQuery()) {
+                item.setId(String.valueOf(res.getInt(1)));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        item.setId(String.format("select id from items where name = %s", item.getName()));
         return item;
     }
 
     @Override
     public boolean replace(String id, Item item) {
         boolean flag = false;
-        try (Statement statement = cn.createStatement()) {
-            flag = statement.execute((String.format(
-                    "update items set name %s where id = %s ", item.getName(), id)));
+        try (PreparedStatement statement = cn.prepareStatement ("update items set name %s where id = %s ;")) {
+            statement.setString(1, item.getName());
+            statement.setInt(2, Integer.parseInt(id));
+            flag = statement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -63,8 +64,9 @@ public class SqlTracker implements Store {
     @Override
     public boolean delete(String id) {
         boolean flag = false;
-        try (Statement statement = cn.createStatement()) {
-            flag = statement.execute((String.format("delete from items where id = %s ", id)));
+        try (PreparedStatement statement = cn.prepareStatement ("delete from items where id = ?;")) {
+            statement.setInt(1, Integer.parseInt(id));
+            flag = statement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -78,7 +80,7 @@ public class SqlTracker implements Store {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     values.add(new Item(
-                            resultSet.getString("id"),
+                            String.valueOf(resultSet.getInt("id")),
                             resultSet.getString("name")
                     ));
                 }
@@ -92,13 +94,12 @@ public class SqlTracker implements Store {
     @Override
     public List<Item> findByName(String key) {
         List<Item> values = new ArrayList<>();
-        try (PreparedStatement statement = cn.prepareStatement(String.format(
-                "select name from items where %s", key))) {
+        try (PreparedStatement statement = cn.prepareStatement("select name from items where ?;")) {
+            statement.setString(1,  key );
             try (ResultSet result = statement.executeQuery()) {
                 while (result.next()) {
-                    values.add(new Item(
-                            result.getString(String.format(key)
-                            )));
+                    values.add(new Item(String.valueOf(result.getInt("id")),
+                            result.getString(key)));
                 }
             }
         } catch (SQLException e) {
@@ -111,9 +112,12 @@ public class SqlTracker implements Store {
     public Item findById(String id) {
         Item result1 = null;
         try (PreparedStatement statement = cn.prepareStatement("select * from items")) {
+            statement.setInt(1, Integer.parseInt(id));
             try (ResultSet result = statement.executeQuery()) {
                 while (result.next()) {
-                    result1 = new Item(result.getString(String.format(id)));
+                    result1 = new Item(
+                            String.valueOf(result.getInt("id")),
+                            result.getString("name"));
                 }
             }
         } catch (SQLException e) {
