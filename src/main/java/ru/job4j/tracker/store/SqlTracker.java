@@ -50,7 +50,7 @@ public class SqlTracker implements Store {
     @Override
     public boolean replace(String id, Item item) {
         boolean flag = false;
-        try (PreparedStatement statement = cn.prepareStatement("update items set name %s where id = %s ;")) {
+        try (PreparedStatement statement = cn.prepareStatement("update items set name = ? where id = ? ;")) {
             statement.setString(1, item.getName());
             statement.setInt(2, Integer.parseInt(id));
             flag = statement.executeUpdate() > 0;
@@ -94,7 +94,7 @@ public class SqlTracker implements Store {
     @Override
     public List<Item> findByName(String key) {
         List<Item> values = new ArrayList<>();
-        try (PreparedStatement statement = cn.prepareStatement("select name from items where ?;")) {
+        try (PreparedStatement statement = cn.prepareStatement("select * from items where name = ?;")) {
             statement.setString(1, key);
             try (ResultSet result = statement.executeQuery()) {
                 while (result.next()) {
@@ -111,7 +111,7 @@ public class SqlTracker implements Store {
     @Override
     public Item findById(String id) {
         Item result1 = null;
-        try (PreparedStatement statement = cn.prepareStatement("select * from items")) {
+        try (PreparedStatement statement = cn.prepareStatement("select * from items where id = ?;")) {
             statement.setInt(1, Integer.parseInt(id));
             try (ResultSet result = statement.executeQuery()) {
                 while (result.next()) {
