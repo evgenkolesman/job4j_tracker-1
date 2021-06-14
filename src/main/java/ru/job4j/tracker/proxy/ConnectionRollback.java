@@ -12,22 +12,22 @@ public class ConnectionRollback {
 
     /**
      * Create connection with autocommit=false mode and rollback call, when connection is closed.
-     * @param connection connection.
+     * @param cn connection.
      * @return Connection object.
      * @throws SQLException possible exception.
      */
-    public static Connection create(Connection connection) throws SQLException {
-        connection.setAutoCommit(false);
+    public static Connection create(Connection cn) throws SQLException {
+        cn.setAutoCommit(false);
         return (Connection) Proxy.newProxyInstance(
                 ConnectionRollback.class.getClassLoader(),
                 new Class[] {Connection.class},
                 (proxy, method, args) -> {
                     Object rsl = null;
                     if ("close".equals(method.getName())) {
-                        connection.rollback();
-                        connection.close();
+                        cn.rollback();
+                        cn.close();
                     } else {
-                        rsl = method.invoke(connection, args);
+                        rsl = method.invoke(cn, args);
                     }
                     return rsl;
                 }

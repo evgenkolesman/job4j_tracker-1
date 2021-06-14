@@ -7,6 +7,7 @@ import ru.job4j.tracker.input.ValidateInput;
 import ru.job4j.tracker.store.Store;
 import ru.job4j.tracker.store.SqlTracker;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 public class StartUI {
