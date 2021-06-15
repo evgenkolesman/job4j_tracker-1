@@ -1,4 +1,4 @@
-/*package ru.job4j.tracker.store;
+package ru.job4j.tracker.store;
 
 import org.junit.Test;
 import ru.job4j.tracker.model.Item;
@@ -66,4 +66,4 @@ public class SqlTrackerTest {
             assertThat(tracker.findById(item.getId()), is(1));
         }
     }
-}*/
+}
