@@ -46,7 +46,9 @@ public class SqlTracker implements Store, AutoCloseable {
                      cn.prepareStatement("insert into items(name) values(?) returning id;")) {
             statement.setString(1, item.getName());
             try (ResultSet res = statement.executeQuery()) {
-                item.setId(String.valueOf(res.getInt(1)));
+                if (res.next()) {
+                    item.setId(String.valueOf(res.getInt(1)));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,7 +103,7 @@ public class SqlTracker implements Store, AutoCloseable {
     @Override
     public List<Item> findByName(String key) {
         List<Item> values = new ArrayList<>();
-        try (PreparedStatement statement = cn.prepareStatement("select * from items where name = %s;")) {
+        try (PreparedStatement statement = cn.prepareStatement("select * from items where name = ?;")) {
             statement.setString(1, key);
             try (ResultSet result = statement.executeQuery()) {
                 while (result.next()) {

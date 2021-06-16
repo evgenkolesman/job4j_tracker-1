@@ -63,7 +63,7 @@ public class SqlTrackerTest {
         try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
             Item item = new Item("name");
             tracker.add(item);
-            assertThat(tracker.findById(item.getId()), is(1));
+            assertThat(tracker.findById(item.getId()), is(item));
         }
     }
 }
