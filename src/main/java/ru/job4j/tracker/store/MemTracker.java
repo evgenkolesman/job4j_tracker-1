@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/*
+ * Проект трэккер метод MemTracker интерфейс Store
+ * @author Kolesnikov Evgeniy (evgeniysanich@mail.ru)
+ * @version 1.0
+ */
 public class MemTracker implements Store {
 
     private final List<ru.job4j.tracker.model.Item> items = new ArrayList<>();
