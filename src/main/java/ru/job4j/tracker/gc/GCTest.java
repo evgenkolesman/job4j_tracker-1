@@ -5,7 +5,7 @@ package ru.job4j.tracker.gc;
  * реализация
  * считаем обычный объект и объект без полей
  * предмет подсчета выделенные под данные объекты объемы памяти
- * -XX:+UseG1GC -Xlog:gc*
+ * VM options: -XX:+UseG1GC -Xlog:gc*
  * @author Kolesnikov Evgeniy (evgeniysanich@mail.ru)
  * @version 1.0
  */
