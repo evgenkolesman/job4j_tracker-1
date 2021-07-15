@@ -32,7 +32,7 @@ public class GCTest {
     public static void main(String[] args) {
         info();
         MemTracker memTracker = new MemTracker();
-        for(int i = 1; i < 10000000; i++) {
+        for (int i = 1; i < 10000000; i++) {
             memTracker.add(new Item(String.valueOf(i)));
         }
         //System.out.printf("Size of object without fields is %s%n", sizeOf(new MemTracker()));
