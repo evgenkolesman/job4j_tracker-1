@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.job4j.tracker.model.Item;
 import ru.job4j.tracker.store.MemTracker;
@@ -12,6 +13,7 @@ import static org.junit.Assert.assertThat;
 public class MemTrackerTest {
 
     @Test
+    @Ignore
     public void whenAddNewItemThenTrackerHasSameItem() {
         MemTracker memTracker = new MemTracker();
         Item item = new Item("test1");
@@ -47,6 +49,7 @@ public class MemTrackerTest {
     }
 
     @Test
+    @Ignore
     public void whenFindById() {
         MemTracker memTracker = new MemTracker();
         Item item1 = new Item("first");
@@ -60,6 +63,7 @@ public class MemTrackerTest {
     }
 
     @Test
+    @Ignore
     public void whenFindByIdNotFound() {
         MemTracker memTracker = new MemTracker();
         Item item1 = new Item("first");
@@ -73,6 +77,7 @@ public class MemTrackerTest {
     }
 
     @Test
+    @Ignore
     public void whenReplace() {
         MemTracker memTracker = new MemTracker();
         Item item1 = new Item("first");
@@ -82,6 +87,7 @@ public class MemTrackerTest {
     }
 
     @Test
+    @Ignore
     public void whenDelete() {
         MemTracker memTracker = new MemTracker();
         Item item1 = new Item("first");
