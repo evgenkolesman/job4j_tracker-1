@@ -27,9 +27,9 @@ public class MemTracker implements Store {
         return item;
     }
 
-    private String generateId() {
+    private Integer generateId() {
         Random rm = new Random();
-        return String.valueOf(rm.nextLong() + System.currentTimeMillis());
+        return rm.nextInt();
     }
 
     @Override
@@ -38,8 +38,8 @@ public class MemTracker implements Store {
     }
 
     @Override
-    public Item findById(String id) {
-        int index = indexOf(id);
+    public Item findById(Integer id) {
+        int index = id;
         return index != -1 ? items.get(index) : null;
     }
 
@@ -55,8 +55,8 @@ public class MemTracker implements Store {
     }
 
     @Override
-    public boolean replace(String id, Item item) {
-        int index = indexOf(id);
+    public boolean replace(Integer id, Item item) {
+        int index = id;
         if (index == -1) {
             return false;
         }
@@ -66,8 +66,8 @@ public class MemTracker implements Store {
     }
 
     @Override
-    public boolean delete(String id) {
-        int index = indexOf(id);
+    public boolean delete(Integer id) {
+        int index = id;
         if (index == -1) {
             return false;
         }
