@@ -12,15 +12,16 @@ import java.util.List;
 /**
  * Пробую настроить Hibernate на старом добром Треккере
  * Основная фоксировка взаимодейтсвие с БД
- * @ Kolesnikov Evgeniy
- * @ version 1
+ * @author  Kolesnikov Evgeniy
+ * @version 1
  */
 public class HibernateRun {
     public static void main(String[] args) {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure().build();
         try {
-            SessionFactory sf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+            SessionFactory sf = new MetadataSources(registry).
+                    buildMetadata().buildSessionFactory();
             Item item = create(new Item("Learn Hibernate"), sf);
             System.out.println(item);
             item.setName("Learn Hibernate 5.");
