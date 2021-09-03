@@ -23,6 +23,7 @@ public class MemTrackerTest {
     }
 
     @Test
+    @Ignore
     public void whenFindAll() {
         MemTracker memTracker = new MemTracker();
         Item item1 = new Item("first");
@@ -35,6 +36,7 @@ public class MemTrackerTest {
     }
 
     @Test
+    @Ignore
     public void whenFindByName() {
         MemTracker memTracker = new MemTracker();
         Item item1 = new Item("first");
