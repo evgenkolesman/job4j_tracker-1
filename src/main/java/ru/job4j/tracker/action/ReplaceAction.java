@@ -1,14 +1,23 @@
 package ru.job4j.tracker.action;
 
 import ru.job4j.tracker.model.Item;
-import ru.job4j.tracker.store.MemTracker;
+import ru.job4j.tracker.trackerformockito.output.Output;
 import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.store.Store;
 
 public class ReplaceAction implements UserAction {
+    private Output out;
+
+    public ReplaceAction(Output out) {
+        this.out = out;
+    }
+
+    public ReplaceAction() {
+    }
+
     @Override
     public String name() {
-        return "=== Edit item ====";
+        return "Edit item";
     }
 
     @Override

@@ -37,4 +37,5 @@ public class ValidateInputTest {
         );
         System.setOut(out);
     }
+
 }
