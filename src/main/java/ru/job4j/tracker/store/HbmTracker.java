@@ -58,8 +58,6 @@ public class HbmTracker implements Store, AutoCloseable {
         } catch (Exception e) {
             logger.error("error: ", e);
         }
-
-
     }
 
     @Override
@@ -191,14 +189,14 @@ public class HbmTracker implements Store, AutoCloseable {
                 new Item("item4"),
                 new Item("item5"),
                 new Item("item1"));
-        for(Item i : list1) {
+        for (Item i : list1) {
             tracker.add(i);
         }
-        tracker.findAll().forEach(System.out :: println);
+        tracker.findAll().forEach(System.out::println);
 
         System.out.println(tracker.findById(1));
         System.out.println(tracker.replace(18, new Item("item3 new")));
-        tracker.findByName("item1").forEach(System.out :: println);
+        tracker.findByName("item1").forEach(System.out::println);
 //        System.out.println(tracker.delete(35));
 
     }
