@@ -49,11 +49,11 @@ public class HbmTracker implements Store, AutoCloseable {
         try (InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream("app.properties")) {
             Properties config = new Properties();
             config.load(in);
-            Class.forName(config.getProperty("driver-class-name"));
+            Class.forName(config.getProperty("H2.driver-class-name"));
             cn = DriverManager.getConnection(
-                    config.getProperty("url"),
-                    config.getProperty("username"),
-                    config.getProperty("password")
+                    config.getProperty("H2.url"),
+                    config.getProperty("H2.username"),
+                    config.getProperty("H2.password")
             );
         } catch (Exception e) {
             logger.error("error: ", e);
@@ -184,22 +184,22 @@ public class HbmTracker implements Store, AutoCloseable {
     public static void main(String[] args) throws Exception {
         HbmTracker tracker = new HbmTracker();
         tracker.init();
-//        List<Item> list1 = List.of(
-//                new Item("item1"),
-//                new Item("item2"),
-//                new Item("item3"),
-//                new Item("item4"),
-//                new Item("item5"),
-//                new Item("item1"));
-//        for(Item i : list1) {
-//            tracker.add(i);
-//        }
-//        tracker.findAll().forEach(System.out :: println);
+        List<Item> list1 = List.of(
+                new Item("item1"),
+                new Item("item2"),
+                new Item("item3"),
+                new Item("item4"),
+                new Item("item5"),
+                new Item("item1"));
+        for(Item i : list1) {
+            tracker.add(i);
+        }
+        tracker.findAll().forEach(System.out :: println);
 
         System.out.println(tracker.findById(1));
         System.out.println(tracker.replace(18, new Item("item3 new")));
-//        tracker.findByName("item1").forEach(System.out :: println);
-        System.out.println(tracker.delete(35));
+        tracker.findByName("item1").forEach(System.out :: println);
+//        System.out.println(tracker.delete(35));
 
     }
 }

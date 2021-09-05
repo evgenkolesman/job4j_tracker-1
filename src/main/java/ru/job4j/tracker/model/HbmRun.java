@@ -9,7 +9,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.sql.Timestamp;
 
-
 public class HbmRun {
     static Logger logger = Logger.getLogger(HbmRun.class);
     public static void main(String[] args) {
