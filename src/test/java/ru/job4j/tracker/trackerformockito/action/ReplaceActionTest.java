@@ -1,6 +1,7 @@
 package ru.job4j.tracker.trackerformockito.action;
 
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.job4j.tracker.trackerformockito.output.StubOutput;
 import ru.job4j.tracker.input.Input;
@@ -14,6 +15,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@Ignore
 public class ReplaceActionTest {
 
     @After

@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.job4j.tracker.action.FindAllAction;
 import ru.job4j.tracker.action.FindByNameAction;
@@ -16,6 +17,7 @@ import java.util.StringJoiner;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+@Ignore
 public class StartUITest {
     @Test
     public void whenExit() throws SQLException {
