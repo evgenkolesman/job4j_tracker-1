@@ -5,9 +5,9 @@ import ru.job4j.tracker.trackerformockito.output.Output;
 public class ConsoleOutput implements Output {
     @Override
     public void writeConsole(String string) {
-        if(string.isEmpty()) {
+        if (string.isEmpty()) {
             System.out.println("Result is null");
-        } else{
+        } else {
             System.out.println(string);
         }
     }

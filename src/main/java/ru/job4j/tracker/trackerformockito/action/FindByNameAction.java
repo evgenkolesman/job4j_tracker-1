@@ -7,7 +7,7 @@ import ru.job4j.tracker.trackerformockito.store.Store;
 
 import java.util.List;
 
-public class FindByNameAction implements UserAction{
+public class FindByNameAction implements UserAction {
     private Output output;
 
     public FindByNameAction(Output output) {
