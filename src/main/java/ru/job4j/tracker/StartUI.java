@@ -4,10 +4,9 @@ import ru.job4j.tracker.action.*;
 import ru.job4j.tracker.input.ConsoleInput;
 import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.input.ValidateInput;
+import ru.job4j.tracker.store.MemTracker;
 import ru.job4j.tracker.store.Store;
-import ru.job4j.tracker.store.SqlTracker;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 public class StartUI {
@@ -34,7 +33,7 @@ public class StartUI {
         Input validate = new ValidateInput(
                 new ConsoleInput()
         );
-        try (Store tracker = new SqlTracker()) {
+        try (Store tracker = new MemTracker()) {
             tracker.init();
             UserAction[] actions = {
                     new CreateAction(),
