@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.*;
 
 public class SqlTrackerTest {
 
-    @Ignore
+
     public Connection init() {
         try (InputStream in = SqlTrackerTest.class.getClassLoader().getResourceAsStream("app.properties")) {
             Properties config = new Properties();
@@ -34,7 +34,6 @@ public class SqlTrackerTest {
     }
 
     @Test
-    @Ignore
     public void createItem() throws Exception {
         try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
             tracker.add(new Item("name"));
@@ -43,7 +42,6 @@ public class SqlTrackerTest {
     }
 
     @Test
-    @Ignore
     public void testReplace() throws Exception {
         try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
             Item item = new Item("name");
@@ -54,7 +52,6 @@ public class SqlTrackerTest {
     }
 
     @Test
-    @Ignore
     public void testDelete()  throws Exception {
         try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
             Item item = new Item("name");
@@ -65,7 +62,6 @@ public class SqlTrackerTest {
     }
 
     @Test
-    @Ignore
     public void testFindById() throws Exception {
         try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
             Item item = new Item("name");

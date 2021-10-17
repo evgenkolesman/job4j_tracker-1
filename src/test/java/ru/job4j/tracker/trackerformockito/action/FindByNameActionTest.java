@@ -15,8 +15,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-
-@Ignore
 public class FindByNameActionTest {
     @After
     public void tearDown() {

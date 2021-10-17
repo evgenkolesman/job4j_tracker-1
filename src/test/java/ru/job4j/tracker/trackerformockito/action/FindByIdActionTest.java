@@ -15,8 +15,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@Ignore
 public class FindByIdActionTest {
+
     @After
     public void tearDown() {
         Tracker.getInstance().clear();
